@@ -8,21 +8,5 @@
 #                       guess a number correctly, or/and a number and digit correctly. A player must guess the right
 #                       number combinations within 10 attempts to win the game.
 #
-# File Name: ui.py
-# File Description: A user interface for the program that calls functions and organizes actions.
-
-
-def main():
-    # print("welcome")
-
-    # instructions
-
-    # while player wants to continue:
-    #   play game?
-
-    # exit
-    return
-
-
-if __name__ == '__main__':
-    main()
+# File Name: messages_constants.py
+# File Description: An alphabetized list of all messages that are used as constants in the program.

@@ -27,52 +27,50 @@ from messages_constants import RANDOMDOTORG_APIKEY
 
 # #################################################################################################################### #
 #                                                                                                                      #
-# FUNCTIONS                                                                                                            #
-#                                                                                                                      #
+# CLASS CodeMaker                                                                                                      #
+#       Description: Controls making code, validating answers, and tracking turns.                                     #
 #                                                                                                                      #
 # #################################################################################################################### #
-def create_random_code():
-    '''
-    Connect to random.org API to generate 4 random numbers 0-7 inclusive. Returns a json response that includes
-    4 randomly generated numbers in given range.
-    :return: a list of 4 random integers
-    '''
+class CodeMaker:
+    def __init__(self, min_num=0, max_num=7):
+        self.turns = 10
+        self.min_num = min_num
+        self.max_num = max_num
+        self.code_entries = 4
+        self.answer_code = []
 
-    raw_data = {
-        "jsonrpc": "2.0",
-        "method": "generateIntegers",
-        "params": {
-            "apiKey": RANDOMDOTORG_APIKEY,
-            "n": 4,
-            "min": 0,
-            "max": 7,
-            "replacement": True
-        },
-        'id': 1
-    }
+    def create_random_code(self):
+        '''
+        Connect to random.org API to generate 4 random numbers 0-7 inclusive. Returns a json response that includes
+        4 randomly generated numbers in given range.
+        :return: a list of 4 random integers
+        '''
 
-    headers = {'Content-type': 'application/json', 'Content-Length': '200', 'Accept': 'application/json'}
+        raw_data = {
+            "jsonrpc": "2.0",
+            "method": "generateIntegers",
+            "params": {
+                "apiKey": RANDOMDOTORG_APIKEY,
+                "n": self.code_entries,
+                "min": self.min_num,
+                "max": self.max_num,
+                "replacement": True
+            },
+            'id': 1
+        }
 
-    data = json.dumps(raw_data)
+        headers = {'Content-type': 'application/json', 'Content-Length': '200', 'Accept': 'application/json'}
+        data = json.dumps(raw_data)
 
-    response = requests.post(
-        url='https://api.random.org/json-rpc/2/invoke',
-        data=data,
-        headers=headers
-    )
-    # example response: {  "jsonrpc":"2.0",
-    #                      "result":{"random":{ "data":[3,1,3,3],
-    #                                           "completionTime":"2023-12-06 20:35:12Z"},
-    #                                           "bitsUsed":12,"bitsLeft":249712,
-    #                                           "requestsLeft":976,
-    #                                           "advisoryDelay":2000},
-    #                       "id":1}
+        response = requests.post(
+            url='https://api.random.org/json-rpc/2/invoke',
+            data=data,
+            headers=headers
+        )
 
-    jsonResponse = response.json()
-    code = jsonResponse['result']['random']['data']
-
-    # result, random , data = value
-    return code
+        json_response = response.json()
+        code = json_response['result']['random']['data']
+        self.answer_code = code
 
 
 # #################################################################################################################### #
@@ -82,7 +80,9 @@ def create_random_code():
 #                                                                                                                      #
 # #################################################################################################################### #
 def main():
-    create_random_code()
+    new_game = CodeMaker()
+    new_game.create_random_code()
+    print(new_game.answer_code)
     return 0
 
 

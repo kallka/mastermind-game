@@ -32,12 +32,18 @@ from messages_constants import RANDOMDOTORG_APIKEY
 #                                                                                                                      #
 # #################################################################################################################### #
 class CodeMaker:
-    def __init__(self, min_num=0, max_num=7):
-        self.turns = 10
+    def __init__(self, turns=10, min_num=0, max_num=7, code_entries=4):
+        self.turns = turns
         self.min_num = min_num
         self.max_num = max_num
-        self.code_entries = 4
+        self.code_entries = code_entries
         self.answer_code = []
+
+    def decrement_turns(self):
+        self.turns -= 1
+
+    def increment_turns(self):
+        self.turns += 1
 
     def create_random_code(self):
         '''
@@ -80,9 +86,12 @@ class CodeMaker:
 #                                                                                                                      #
 # #################################################################################################################### #
 def main():
-    new_game = CodeMaker()
-    new_game.create_random_code()
-    print(new_game.answer_code)
+    game = CodeMaker()
+    game.create_random_code()
+    print(game.answer_code)
+    while game.turns > 0:
+        print(game.turns)
+        game.decrement_turns()
     return 0
 
 

@@ -27,8 +27,12 @@ from messages_constants import RANDOMDOTORG_APIKEY
 
 # #################################################################################################################### #
 #                                                                                                                      #
-# CLASS CodeMaker                                                                                                      #
-#       Description: Controls making code, validating answers, and tracking turns.                                     #
+# CLASS:    CodeMaker                                                                                                  #
+#                                                                                                                      #
+#           Description: Controls making code, validating answers, and tracking turns.                                 #
+#           Methods:    - decrement_turns                                                                              #
+#                       - increment_turns                                                                              #
+#                       - create_random_code                                                                           #
 #                                                                                                                      #
 # #################################################################################################################### #
 class CodeMaker:
@@ -37,7 +41,7 @@ class CodeMaker:
         self.min_num = min_num
         self.max_num = max_num
         self.code_entries = code_entries
-        self.answer_code = []
+        self.answer_code = []               # change this to automatic create_random_code ?
 
     def decrement_turns(self):
         self.turns -= 1

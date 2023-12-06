@@ -26,11 +26,13 @@ INVALID_RESPONSE = "That was not a valid response. Please try again."
 
 LOST_GAME = "Game lost. :( Better luck next time!"
 
+MAKE_A_GUESS = "Please input 4 integers: "
+
 NO_RESPONSES = {"N", "NO", "n", "no"}
 
-RANDOMDOTORG_APIKEY = "475df9e9-d3d0-4bcd-a0c8-5db30b110daf"
-
 PLAY_GAME = "Would you like to play mastermind? Y/N? "
+
+RANDOMDOTORG_APIKEY = "475df9e9-d3d0-4bcd-a0c8-5db30b110daf"
 
 TRY_AGAIN = "Good guess! Please try again."
 

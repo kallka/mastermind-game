@@ -18,12 +18,22 @@
 #                                                                                                                      #
 # #################################################################################################################### #
 
+GOODBYE = "Thank you for stopping by. \nGoodbye!"
+
 INSTRUCTIONS = ""
 
+INVALID_RESPONSE = "That was not a valid response. Please try again."
+
 LOST_GAME = "Game lost. :( Better luck next time!"
+
+NO_RESPONSES = {"N", "NO", "n", "no"}
+
+PLAY_GAME = "Would you like to play mastermind? Y/N? "
 
 TRY_AGAIN = "Good guess! Please try again."
 
 WELCOME = "WELCOME TO MASTERMIND."
 
 WON_GAME = "Congratulations! You won!"
+
+YES_RESPONSES = {"Y", "YES", "y", "yes"}

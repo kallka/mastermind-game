@@ -17,6 +17,40 @@
 #                                                                                                                      #
 #                                                                                                                      #
 # #################################################################################################################### #
+from messages_constants import WELCOME, PLAY_GAME, GOODBYE
+from messages_constants import YES_RESPONSES, NO_RESPONSES, INVALID_RESPONSE
+
+
+# #################################################################################################################### #
+#                                                                                                                      #
+# FUNCTIONS                                                                                                            #
+#      - ask_to_play()                                                                                                 #
+#                                                                                                                      #
+# #################################################################################################################### #
+def ask_to_play():
+    '''
+    Sets up loop that asks player if they would like to play the game(s).
+    Returns when player declines to play another game.
+    '''
+    play = True
+
+    while play:
+        user_response = ""
+        break_loop = 0
+
+        while (user_response not in YES_RESPONSES) and (user_response not in NO_RESPONSES) and break_loop < 5:
+            if break_loop > 0:
+                print(f"\n{INVALID_RESPONSE}")
+            user_response = input(f"{PLAY_GAME}").lower()
+            break_loop += 1
+
+        if user_response in YES_RESPONSES:
+            # play game
+            print("-- insert play mastermind --")
+
+        else:
+            play = False
+
 
 # #################################################################################################################### #
 #                                                                                                                      #
@@ -25,16 +59,17 @@
 #                                                                                                                      #
 # #################################################################################################################### #
 def main():
-    # print("welcome")
+    '''
+    Welcomes user(s), asks if users want to play, and says goodbye.
+    :return: 0
+    '''
 
-    # instructions
+    print(WELCOME)
+    ask_to_play()
+    print(f"\n{GOODBYE}")
 
-    # while player wants to continue:
-    #   play game?
-
-    # exit
-    return
+    return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

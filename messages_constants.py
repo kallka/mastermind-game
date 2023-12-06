@@ -10,3 +10,20 @@
 #
 # File Name: messages_constants.py
 # File Description: An alphabetized list of all messages that are used as constants in the program.
+
+# #################################################################################################################### #
+#                                                                                                                      #
+# CONSTANTS                                                                                                            #
+# Alphabetized list of all messages that are used as constants.                                                        #
+#                                                                                                                      #
+# #################################################################################################################### #
+
+INSTRUCTIONS = ""
+
+LOST_GAME = "Game lost. :( Better luck next time!"
+
+TRY_AGAIN = "Good guess! Please try again."
+
+WELCOME = "WELCOME TO MASTERMIND."
+
+WON_GAME = "Congratulations! You won!"

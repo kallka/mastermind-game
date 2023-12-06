@@ -41,24 +41,22 @@ class CodeBreaker:
         self.current_game = None
         self.current_guesses = []
 
+    ####################################################################################################################
+    #                                make_guess and validate_guess_input                                               #
+    ####################################################################################################################
     def make_guess(self):
         if self.current_game is None:
-            self.request_new_game()
+            self.set_new_game()
 
         guess = ""
         valid = False
         while not valid:
             guess = input(MAKE_A_GUESS)
-            valid, guess = self.validate_guess_input(guess)
+            valid, guess = self.helper_validate_make_guess(guess)
 
         self.current_guesses.append(guess)
 
-    def request_new_game(self):
-        new_game = CodeMaker()
-        new_game.create_random_code()
-        self.current_game = new_game
-
-    def validate_guess_input(self, guess):
+    def helper_validate_make_guess(self, guess):
         valid = False
 
         if len(guess) == self.current_game.code_entries:
@@ -76,6 +74,15 @@ class CodeBreaker:
 
         return valid, guess
 
+    ####################################################################################################################
+    #                                SETS:                                                                             #
+    #                                   1. set_new_game                                                                #
+    ####################################################################################################################
+    def set_new_game(self):
+        new_game = CodeMaker()
+        new_game.create_random_code()
+        self.current_game = new_game
+
 
 # #################################################################################################################### #
 #                                                                                                                      #
@@ -87,12 +94,13 @@ def main():
     new_player = CodeBreaker()
 
 
-    new_player.request_new_game()
-    turns = new_player.current_game.
-    count = 0
-    while count < 10:
+    new_player.set_new_game()
+    turns = new_player.current_game.get_turns()
+
+    while turns > 0:
         new_player.make_guess()
-        count += 1
+        # remove as this will be handled by code_maker
+        turns -= 1
         print(new_player.current_guesses)
 
     return 0

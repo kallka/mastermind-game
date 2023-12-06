@@ -43,9 +43,6 @@ class CodeMaker:
         self.code_entries = code_entries
         self.answer_code = []               # change this to automatic create_random_code ?
 
-    def decrement_turns(self):
-        self.turns -= 1
-
     def get_turns(self):
         return self.turns
 
@@ -57,6 +54,9 @@ class CodeMaker:
 
     def get_answer_code(self):
         return self.answer_code
+
+    def decrement_turns(self):
+        self.turns -= 1
 
     def increment_turns(self):
         self.turns += 1

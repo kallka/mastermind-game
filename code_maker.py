@@ -46,6 +46,18 @@ class CodeMaker:
     def decrement_turns(self):
         self.turns -= 1
 
+    def get_turns(self):
+        return self.turns
+
+    def get_min_num(self):
+        return self.min_num
+
+    def get_max_num(self):
+        return self.max_num
+
+    def get_answer_code(self):
+        return self.answer_code
+
     def increment_turns(self):
         self.turns += 1
 

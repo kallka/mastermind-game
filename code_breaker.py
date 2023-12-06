@@ -41,11 +41,6 @@ class CodeBreaker:
         self.current_game = None
         self.current_guesses = []
 
-    def request_new_game(self):
-        new_game = CodeMaker()
-        new_game.create_random_code()
-        self.current_game = new_game
-
     def make_guess(self):
         if self.current_game is None:
             self.request_new_game()
@@ -54,11 +49,16 @@ class CodeBreaker:
         valid = False
         while not valid:
             guess = input(MAKE_A_GUESS)
-            valid, guess = self.validate_guess(guess)
+            valid, guess = self.validate_guess_input(guess)
 
         self.current_guesses.append(guess)
 
-    def validate_guess(self, guess):
+    def request_new_game(self):
+        new_game = CodeMaker()
+        new_game.create_random_code()
+        self.current_game = new_game
+
+    def validate_guess_input(self, guess):
         valid = False
 
         if len(guess) == self.current_game.code_entries:
@@ -85,12 +85,16 @@ class CodeBreaker:
 # #################################################################################################################### #
 def main():
     new_player = CodeBreaker()
+
+
     new_player.request_new_game()
+    turns = new_player.current_game.
     count = 0
     while count < 10:
         new_player.make_guess()
         count += 1
         print(new_player.current_guesses)
+
     return 0
 
 

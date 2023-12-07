@@ -51,29 +51,18 @@ class CodeBreaker:
     #                                make_guess                                                                        #
     #                                helper_validate_make_guess                                                        #
     ####################################################################################################################
-    def make_guess(self):
-        guess = ""
-        valid = False
+    def make_guess(self, guess):
+        valid, guess = self.helper_validate_make_guess(guess)
+        if valid is False:
+            return valid
 
-        # loop until guess is valid
-        # TODO: make a way to break out of loop in case user can't make valid guess
-        # TODO: consider moving input to UI only space
-        while not valid:
-            print(f"You have {self.current_game.get_turns()} turns remaining.")
-            guess = input(f"Please input {self.current_game.get_code_entries()} integers "
-                          f"between {self.current_game.get_min_num()} and {self.current_game.get_max_num()}: ")
-            valid, guess = self.helper_validate_make_guess(guess)
-            if valid is False:
-                print(INVALID_RESPONSE)
+        # save guess, get feedback, and save feedback
         self.guesses.append(guess)
-
-        # send guess to code maker to process and get feedback
         feedback = self.current_game.process_guess(guess)
-        # save (match_value_and_place, match_value) to self.guess_feedback
         self.guess_feedback.append(feedback)
 
-        # optional - return each guess
-        return guess
+        # returns True for guess is valid
+        return valid
 
     def helper_validate_make_guess(self, guess):
         valid = False

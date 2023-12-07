@@ -80,7 +80,8 @@ class CodeMaker:
     def create_random_code(self):
         '''
         Connect to random.org API to generate 4 random numbers 0-7 inclusive. Returns a json response that includes
-        4 randomly generated numbers in given range.
+        4 randomly generated numbers in given range. If an error occurs connecting to random.org the HTTP status
+        code will be 503.
         :return: a list of 4 random integers
         '''
         # set up data for json request

@@ -53,13 +53,23 @@ def ask_to_play():
             play = False
 
 
+def get_user_guess(game):
+    print(f"You have {game.remaining_turns()} turns remaining.")
+    guess = input(f"Please input {game.current_game.get_code_entries()} integers "
+                    f"between {game.current_game.get_min_num()} and {game.current_game.get_max_num()}: ")
+    return guess
+
+
 def play_mastermind():
     # play game
     print(INSTRUCTIONS)
-    new_game = CodeBreaker()
+    game = CodeBreaker()
 
-    while new_game.remaining_turns() > 0:
-        new_game.make_guess()
+    while game.remaining_turns() > 0:
+        guess = get_user_guess(game)
+        valid_guess = game.make_guess(guess)
+        if not valid_guess:
+            print(INVALID_RESPONSE)
 
 
 # #################################################################################################################### #

@@ -1,5 +1,4 @@
 # Author: Karina Kallas
-# Date Last Modified: Dec. 6, 2023
 # Date Last Tested: Dec. 6, 2023
 
 import unittest
@@ -41,7 +40,7 @@ class TestCodeMaker(unittest.TestCase):
         result = CodeMaker()
         result.create_random_code()
         self.assertEqual(len(result.answer_code), result.code_entries,
-                           "The answer_code is the same length as the code_entries.")
+                         "The answer_code is the same length as the code_entries.")
 
 
 if __name__ == "__main__":

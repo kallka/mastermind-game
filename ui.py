@@ -19,6 +19,8 @@
 # #################################################################################################################### #
 from messages_constants import WELCOME, PLAY_GAME, GOODBYE
 from messages_constants import YES_RESPONSES, NO_RESPONSES, INVALID_RESPONSE
+from code_breaker import CodeBreaker
+from code_maker import CodeMaker
 
 
 # #################################################################################################################### #

@@ -1,9 +1,10 @@
 # Author: Karina Kallas
-# Date Last Modified: Dec. 6, 2023
 # Date Last Tested: Dec. 6, 2023
+
 
 import unittest
 from code_breaker import *
+
 
 # #################################################################################################################### #
 #                                                                                                                      #
@@ -25,7 +26,7 @@ class TestCodeBreaker(unittest.TestCase):
 
     # Valid entries for helper_validate_make_guess?
     def test_make_guess(self):
-        result = CodeBreaker()          #turns = 10, min_num = 0, max_num = 7, code_entries = 4
+        result = CodeBreaker()          # turns = 10, min_num = 0, max_num = 7, code_entries = 4
         result.set_new_game()
         guesses = [['12345678', False], ['1111', True], ['2222', True], ['9999', False],
                    ['-1-1', False], ['7070', True]]

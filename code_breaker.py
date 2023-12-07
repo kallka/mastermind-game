@@ -27,34 +27,49 @@ from messages_constants import MAKE_A_GUESS
 #                                                                                                                      #
 # CLASS:    CodeBreaker                                                                                                #
 #                                                                                                                      #
-#           Description: Controls making code, validating answers, and tracking turns.                                 #
-#           Methods:    - request_new_game                                                                             #
+#           Description: Controls making guess, validating guess, and tracking guesses and feedback.                   #
+#           Methods:    - set_new_game                                                                                 #
 #                       - make_guess                                                                                   #
-#                       - create_random_code                                                                           #
 #                                                                                                                      #
 # #################################################################################################################### #
 class CodeBreaker:
     def __init__(self):
-        self.wins = 0
-        self.losses = 0
-        self.games_played = 0
-        self.current_game = None
-        self.current_guesses = []
+        self.current_game = self.set_new_game()
+        self.guesses = []
+        self.guess_feedback = []
 
     ####################################################################################################################
-    #                                make_guess and validate_guess_input                                               #
+    #                                 set_new_game                                                                     #
+    ####################################################################################################################
+    @classmethod
+    def set_new_game(cls):
+        new_game = CodeMaker()
+        new_game.create_random_code()
+        return new_game
+
+    ####################################################################################################################
+    #                                make_guess                                                                        #
+    #                                helper_validate_make_guess                                                        #
     ####################################################################################################################
     def make_guess(self):
-        if self.current_game is None:
-            self.set_new_game()
-
         guess = ""
         valid = False
+
+        # loop until guess is valid
+        # TODO: make a way to break out of loop in case user can't make valid guess
         while not valid:
             guess = input(MAKE_A_GUESS)
             valid, guess = self.helper_validate_make_guess(guess)
 
-        self.current_guesses.append(guess)
+        self.guesses.append(guess)
+
+        # send guess to code maker to process and get feedback
+        feedback = self.current_game.process_guess(guess)
+        # save (match_value_and_place, match_value) to self.guess_feedback
+        self.guess_feedback.append(feedback)
+
+        # optional - return each guess
+        return guess
 
     def helper_validate_make_guess(self, guess):
         valid = False
@@ -74,15 +89,6 @@ class CodeBreaker:
 
         return valid, guess
 
-    ####################################################################################################################
-    #                                SETS:                                                                             #
-    #                                   1. set_new_game                                                                #
-    ####################################################################################################################
-    def set_new_game(self):
-        new_game = CodeMaker()
-        new_game.create_random_code()
-        self.current_game = new_game
-
 
 # #################################################################################################################### #
 #                                                                                                                      #
@@ -93,15 +99,14 @@ class CodeBreaker:
 def main():
     new_player = CodeBreaker()
 
-
-    new_player.set_new_game()
     turns = new_player.current_game.get_turns()
 
     while turns > 0:
-        new_player.make_guess()
+        guess = new_player.make_guess()
+        print(guess)
         # remove as this will be handled by code_maker
         turns -= 1
-        print(new_player.current_guesses)
+        print(new_player.guesses)
 
     return 0
 

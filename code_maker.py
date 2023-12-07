@@ -22,6 +22,7 @@
 # #################################################################################################################### #
 import requests
 import json
+from collections import defaultdict
 from messages_constants import RANDOMDOTORG_APIKEY
 
 
@@ -43,6 +44,12 @@ class CodeMaker:
         self.code_entries = code_entries
         self.answer_code = []               # change this to automatic create_random_code ?
 
+    ####################################################################################################################
+    #                                 GETS: - get_turns                                                                #
+    #                                       - get_min_num                                                              #
+    #                                       - get_max_num                                                              #
+    #                                       - get_answer_code                                                          #
+    ####################################################################################################################
     def get_turns(self):
         return self.turns
 
@@ -55,19 +62,25 @@ class CodeMaker:
     def get_answer_code(self):
         return self.answer_code
 
+    ####################################################################################################################
+    #                                       decrement_turns / increment_turns                                          #
+    ####################################################################################################################
     def decrement_turns(self):
         self.turns -= 1
 
     def increment_turns(self):
         self.turns += 1
 
+    ####################################################################################################################
+    #                                       create_random_code                                                         #
+    ####################################################################################################################
     def create_random_code(self):
         '''
         Connect to random.org API to generate 4 random numbers 0-7 inclusive. Returns a json response that includes
         4 randomly generated numbers in given range.
         :return: a list of 4 random integers
         '''
-
+        # set up data for json request
         raw_data = {
             "jsonrpc": "2.0",
             "method": "generateIntegers",
@@ -80,19 +93,59 @@ class CodeMaker:
             },
             'id': 1
         }
-
         headers = {'Content-type': 'application/json', 'Content-Length': '200', 'Accept': 'application/json'}
         data = json.dumps(raw_data)
 
+        # send request and receive response
         response = requests.post(
             url='https://api.random.org/json-rpc/2/invoke',
             data=data,
             headers=headers
         )
 
+        # pull random code, list of integers, from response
         json_response = response.json()
         code = json_response['result']['random']['data']
         self.answer_code = code
+
+    ####################################################################################################################
+    #                               PROCESS GUESSES:  - process_guess                                                  #
+    #                                                 - check_player_guess                                             #
+    ####################################################################################################################
+    def process_guess(self, guess):
+        # check valid guess
+        self.check_player_guess(guess)
+        # remove a turn
+        self.decrement_turns()
+        # check if out of turns
+
+    def check_player_guess(self, guess):
+        '''
+        Checks the current guess from the code breaker for matches of index and value as well as matches of value only.
+        :param guess: The current guess from the code breaker. A list of ints.
+        :return: match_value_and_place, match_value_only
+        '''
+        # create a list to store index of items that did not match and result
+        guess_idx_not_matched = []
+        answer_not_matched = defaultdict(int)
+        match_value_and_place = 0
+        match_value_only = 0
+
+        # check for matched value and place
+        for idx, num in enumerate(guess):
+            if num == self.answer_code[idx]:
+                match_value_and_place += 1
+            else:
+                guess_idx_not_matched.append(idx)
+                answer_not_matched[self.answer_code[idx]] += 1
+
+        # check for matched value from remaining
+        for idx in guess_idx_not_matched:
+            if guess[idx] in answer_not_matched and answer_not_matched[guess[idx]] > 0:
+                answer_not_matched[guess[idx]] -= 1
+                match_value_only += 1
+
+        return match_value_and_place, match_value_only
 
 
 # #################################################################################################################### #

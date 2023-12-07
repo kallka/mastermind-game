@@ -57,6 +57,7 @@ class CodeBreaker:
 
         # loop until guess is valid
         # TODO: make a way to break out of loop in case user can't make valid guess
+        # TODO: consider moving input to UI only space
         while not valid:
             guess = input(MAKE_A_GUESS)
             valid, guess = self.helper_validate_make_guess(guess)
@@ -89,6 +90,11 @@ class CodeBreaker:
 
         return valid, guess
 
+    ####################################################################################################################
+    #                                 remaining_turns                                                                  #
+    ####################################################################################################################
+    def remaining_turns(self):
+        return self.current_game.get_turns()
 
 # #################################################################################################################### #
 #                                                                                                                      #
@@ -104,6 +110,7 @@ def main():
     while turns > 0:
         guess = new_player.make_guess()
         print(guess)
+        print(new_player.guess_feedback)
         # remove as this will be handled by code_maker
         turns -= 1
         print(new_player.guesses)

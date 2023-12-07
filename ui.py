@@ -17,7 +17,7 @@
 #                                                                                                                      #
 #                                                                                                                      #
 # #################################################################################################################### #
-from messages_constants import WELCOME, PLAY_GAME, GOODBYE
+from messages_constants import WELCOME, PLAY_GAME, INSTRUCTIONS, GOODBYE
 from messages_constants import YES_RESPONSES, NO_RESPONSES, INVALID_RESPONSE
 from code_breaker import CodeBreaker
 from code_maker import CodeMaker
@@ -48,7 +48,15 @@ def ask_to_play():
 
         if user_response in YES_RESPONSES:
             # play game
-            print("-- insert play mastermind --")
+            print("-- play mastermind --")
+            print(INSTRUCTIONS)
+            new_game = CodeBreaker()
+
+            while new_game.remaining_turns() > 0:
+                guess = new_game.make_guess()
+                print(guess)
+                print(new_game.guess_feedback)
+                print(new_game.guesses)
 
         else:
             play = False

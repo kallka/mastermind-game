@@ -114,10 +114,11 @@ class CodeMaker:
     ####################################################################################################################
     def process_guess(self, guess):
         # check valid guess
-        self.check_player_guess(guess)
+        matches = self.check_player_guess(guess)
         # remove a turn
         self.decrement_turns()
         # check if out of turns
+        return matches
 
     def check_player_guess(self, guess):
         '''

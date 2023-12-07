@@ -20,7 +20,7 @@
 #                                                                                                                      #
 # #################################################################################################################### #
 from code_maker import CodeMaker
-from messages_constants import MAKE_A_GUESS
+from messages_constants import INVALID_RESPONSE
 
 
 # #################################################################################################################### #
@@ -59,9 +59,12 @@ class CodeBreaker:
         # TODO: make a way to break out of loop in case user can't make valid guess
         # TODO: consider moving input to UI only space
         while not valid:
-            guess = input(MAKE_A_GUESS)
+            print(f"You have {self.current_game.get_turns()} turns remaining.")
+            guess = input(f"Please input {self.current_game.get_code_entries()} integers "
+                          f"between {self.current_game.get_min_num()} and {self.current_game.get_max_num()}: ")
             valid, guess = self.helper_validate_make_guess(guess)
-
+            if valid is False:
+                print(INVALID_RESPONSE)
         self.guesses.append(guess)
 
         # send guess to code maker to process and get feedback
@@ -105,15 +108,12 @@ class CodeBreaker:
 def main():
     new_player = CodeBreaker()
 
-    turns = new_player.current_game.get_turns()
-
-    while turns > 0:
+    while new_player.current_game.get_turns() > 0:
         guess = new_player.make_guess()
-        print(guess)
         print(new_player.guess_feedback)
-        # remove as this will be handled by code_maker
-        turns -= 1
         print(new_player.guesses)
+
+    print(new_player.current_game.get_answer_code())
 
     return 0
 

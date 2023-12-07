@@ -23,7 +23,7 @@
 import requests
 import json
 from collections import defaultdict
-from messages_constants import RANDOMDOTORG_APIKEY
+from messages_constants import RANDOMDOTORG_APIKEY, LOST_GAME, WON_GAME
 
 
 # #################################################################################################################### #
@@ -58,6 +58,9 @@ class CodeMaker:
 
     def get_max_num(self):
         return self.max_num
+
+    def get_code_entries(self):
+        return self.code_entries
 
     def get_answer_code(self):
         return self.answer_code
@@ -117,8 +120,33 @@ class CodeMaker:
         matches = self.check_player_guess(guess)
         # remove a turn
         self.decrement_turns()
-        # check if out of turns
+
+        # print result
+        print(f"You guessed: {self.int_list_to_string(guess)} ... "
+              f"\t-> {matches[0]} matched value and place. "
+              f"\t-> {matches[1]} matched value, invalid place.")
+
+        # check end of game
+        end_game, win = self.check_end_of_game(matches[0])
+        if end_game is True:
+            if win:
+                print(f"{WON_GAME} "
+                      f"{self.int_list_to_string(guess)} matches {self.int_list_to_string(self.answer_code)}.")
+                self.turns = 0
+            else:
+                print(f"{LOST_GAME} The correct answer was {self.int_list_to_string(self.answer_code)}.")
         return matches
+
+    def check_end_of_game(self, correct):
+        end = False
+        win = False
+
+        if self.turns < 1 or correct == self.code_entries:
+            end = True
+            if correct == self.code_entries:
+                win = True
+
+        return end, win
 
     def check_player_guess(self, guess):
         '''
@@ -148,6 +176,12 @@ class CodeMaker:
 
         return match_value_and_place, match_value_only
 
+    ####################################################################################################################
+    #                       PROCESS FOR PRINTING:  - int_list_to_string                                                #
+    #                                                                                                                  #
+    ####################################################################################################################
+    def int_list_to_string(self, int_list):
+        return ''.join(map(str, int_list))
 
 # #################################################################################################################### #
 #                                                                                                                      #

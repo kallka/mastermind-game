@@ -27,6 +27,7 @@ from code_maker import CodeMaker
 #                                                                                                                      #
 # FUNCTIONS                                                                                                            #
 #      - ask_to_play()                                                                                                 #
+#      - play_mastermind()                                                                                             #
 #                                                                                                                      #
 # #################################################################################################################### #
 def ask_to_play():
@@ -43,23 +44,23 @@ def ask_to_play():
         while (user_response not in YES_RESPONSES) and (user_response not in NO_RESPONSES) and break_loop < 5:
             if break_loop > 0:
                 print(f"\n{INVALID_RESPONSE}")
-            user_response = input(f"{PLAY_GAME}").lower()
+            user_response = input(f"\n{PLAY_GAME}").lower()
             break_loop += 1
 
         if user_response in YES_RESPONSES:
-            # play game
-            print("-- play mastermind --")
-            print(INSTRUCTIONS)
-            new_game = CodeBreaker()
-
-            while new_game.remaining_turns() > 0:
-                guess = new_game.make_guess()
-                print(guess)
-                print(new_game.guess_feedback)
-                print(new_game.guesses)
+            play_mastermind()
 
         else:
             play = False
+
+
+def play_mastermind():
+    # play game
+    print(INSTRUCTIONS)
+    new_game = CodeBreaker()
+
+    while new_game.remaining_turns() > 0:
+        new_game.make_guess()
 
 
 # #################################################################################################################### #

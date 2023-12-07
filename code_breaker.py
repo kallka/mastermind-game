@@ -109,11 +109,7 @@ def main():
     new_player = CodeBreaker()
 
     while new_player.current_game.get_turns() > 0:
-        guess = new_player.make_guess()
-        print(new_player.guess_feedback)
-        print(new_player.guesses)
-
-    print(new_player.current_game.get_answer_code())
+        new_player.make_guess()
 
     return 0
 

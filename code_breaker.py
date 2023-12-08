@@ -20,7 +20,7 @@
 #                                                                                                                      #
 # #################################################################################################################### #
 from code_maker import CodeMaker
-from messages_constants import INVALID_RESPONSE
+from messages_constants import HINT_1
 
 
 # #################################################################################################################### #
@@ -37,6 +37,7 @@ class CodeBreaker:
         self.current_game = self.set_new_game()
         self.guesses = []
         self.guess_feedback = []
+        self.hints = 0
 
     ####################################################################################################################
     #                                 set_new_game                                                                     #
@@ -83,10 +84,33 @@ class CodeBreaker:
         return valid, guess
 
     ####################################################################################################################
+    #                                 hints                                                                            #
+    ####################################################################################################################
+    def hints(self):
+        if self.hints == 0:
+            print(HINT_1)
+        elif self.hints == 1:
+            print(self.match_place_and_value())
+            self.hints += 1
+        return
+
+    def match_place_and_value(self):
+        hint = "placeholder"
+        place_and_value_guesses = []
+        for idx, match in enumerate(self.guess_feedback):
+            # find all guesses where match and place ok
+            if match[0] != 0:
+                place_and_value_guesses.append([self.guesses[idx]])
+                # do depth first search to determine which numbers are the same?
+
+        return hint
+
+    ####################################################################################################################
     #                                 remaining_turns                                                                  #
     ####################################################################################################################
     def remaining_turns(self):
         return self.current_game.get_turns()
+
 
 # #################################################################################################################### #
 #                                                                                                                      #
@@ -98,7 +122,9 @@ def main():
     new_player = CodeBreaker()
 
     while new_player.current_game.get_turns() > 0:
-        new_player.make_guess()
+        guess = input(f"Input {new_player.current_game.get_code_entries()} integers "
+                      f"between {new_player.current_game.get_min_num()} and {new_player.current_game.get_max_num()}: ")
+        new_player.make_guess(guess)
 
     return 0
 

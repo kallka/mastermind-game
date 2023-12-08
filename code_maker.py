@@ -23,7 +23,7 @@
 import requests
 import json
 from collections import defaultdict
-from messages_constants import RANDOMDOTORG_APIKEY, LOST_GAME, WON_GAME
+from messages_constants import RANDOMDOTORG_APIKEY, LOST_GAME, WON_GAME, GUESS_FEEDBACK
 
 
 # #################################################################################################################### #
@@ -100,6 +100,7 @@ class CodeMaker:
         headers = {'Content-type': 'application/json', 'Content-Length': '200', 'Accept': 'application/json'}
         data = json.dumps(raw_data)
 
+        # TODO: Find an exception to raise for 503 Service Unavailable Error
         # send request and receive response
         response = requests.post(
             url='https://api.random.org/json-rpc/2/invoke',
@@ -123,19 +124,18 @@ class CodeMaker:
         self.decrement_turns()
 
         # print result
-        print(f"You guessed: {self.int_list_to_string(guess)} ... "
-              f"\t-> {matches[0]} matched value and place. "
-              f"\t-> {matches[1]} matched value, invalid place.")
+        format_guess = self.int_list_to_string(guess)
+        print(f"{GUESS_FEEDBACK.format(guess=format_guess, match_value_place=matches[0], match_value=matches[1])}")
 
         # check end of game
         end_game, win = self.check_end_of_game(matches[0])
         if end_game is True:
+            format_guess, format_answer = self.int_list_to_string(guess), self.int_list_to_string(self.answer_code)
             if win:
-                print(f"{WON_GAME} "
-                      f"{self.int_list_to_string(guess)} matches {self.int_list_to_string(self.answer_code)}.")
+                print(f"{WON_GAME.format(guess=format_guess, answer=format_answer)}")
                 self.turns = 0
             else:
-                print(f"{LOST_GAME} The correct answer was {self.int_list_to_string(self.answer_code)}.")
+                print(f"{LOST_GAME.format(answer=format_answer)}")
         return matches
 
     def check_end_of_game(self, correct):
@@ -183,6 +183,7 @@ class CodeMaker:
     ####################################################################################################################
     def int_list_to_string(self, int_list):
         return ''.join(map(str, int_list))
+
 
 # #################################################################################################################### #
 #                                                                                                                      #

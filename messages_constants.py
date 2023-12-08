@@ -18,13 +18,27 @@
 #                                                                                                                      #
 # #################################################################################################################### #
 
-GOODBYE = "Thank you for stopping by. \nGoodbye!"
+GOODBYE = "Thank you for stopping by. " \
+          "\nGoodbye!"
+
+GET_CODEBREAKER_GUESS = "Please input {code_entries} integers between {min_num} and {max_num}: "
+
+GET_HINT = "** Type 'h' to get a hint!"
+
+GUESS_FEEDBACK = "You guessed: {guess} ... " \
+                 "\t-> {match_value_place} matched value and place. " \
+                 "\t-> {match_value} matched value, invalid place."
+
+HINT_1 = "Try at least one guess before asking for a hint..."
 
 INSTRUCTIONS = ""
 
 INVALID_RESPONSE = "That was not a valid response. Please try again."
 
-LOST_GAME = "Game lost. :( Better luck next time!"
+INVALID_RESPONSE_AND_EXIT = "I am sorry. Your input is not matching valid yes or no response. " \
+                            "\n The program will now exit. Please try again later."
+
+LOST_GAME = "Game lost. The correct answer was {answer}. :( Better luck next time!"
 
 NO_RESPONSES = {"N", "NO", "n", "no"}
 
@@ -32,10 +46,12 @@ PLAY_GAME = "Would you like to play mastermind? Y/N? "
 
 RANDOMDOTORG_APIKEY = "475df9e9-d3d0-4bcd-a0c8-5db30b110daf"
 
+REMAINING_TURNS = "You have {turns} turns remaining."
+
 TRY_AGAIN = "Good guess! Please try again."
 
 WELCOME = "WELCOME TO MASTERMIND."
 
-WON_GAME = "Congratulations! You won!"
+WON_GAME = "Congratulations! You won! {guess} matches {answer}."
 
 YES_RESPONSES = {"Y", "YES", "y", "yes"}

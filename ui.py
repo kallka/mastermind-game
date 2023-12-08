@@ -17,9 +17,9 @@
 #                                                                                                                      #
 #                                                                                                                      #
 # #################################################################################################################### #
-from messages_constants import WELCOME, PLAY_GAME, INSTRUCTIONS, GOODBYE
-from messages_constants import YES_RESPONSES, NO_RESPONSES, INVALID_RESPONSE
 from code_breaker import CodeBreaker
+from messages_constants import WELCOME, PLAY_GAME, INSTRUCTIONS, GOODBYE, YES_RESPONSES, NO_RESPONSES, \
+    INVALID_RESPONSE, INVALID_RESPONSE_AND_EXIT, REMAINING_TURNS, GET_HINT, GET_CODEBREAKER_GUESS
 
 
 # #################################################################################################################### #
@@ -46,6 +46,10 @@ def ask_to_play():
             user_response = input(f"\n{PLAY_GAME}").lower()
             break_loop += 1
 
+        if break_loop == 5:
+            print(f"{INVALID_RESPONSE_AND_EXIT}")
+            return
+
         if user_response in YES_RESPONSES:
             play_mastermind()
 
@@ -54,11 +58,22 @@ def ask_to_play():
 
 
 def get_user_guess(game):
-    print(f"You have {game.remaining_turns()} turns remaining.")
-    guess = input(f"Please input {game.current_game.get_code_entries()} integers "
-                    f"between {game.current_game.get_min_num()} and {game.current_game.get_max_num()}: ")
+    print(f"{REMAINING_TURNS.format(turns=game.remaining_turns())}\t{GET_HINT}")
+
+    entries, min_num, max_num = game.current_game.get_code_entries(), \
+                                game.current_game.get_min_num(), \
+                                game.current_game.get_max_num()
+    guess = input(f"{GET_CODEBREAKER_GUESS.format(code_entries=entries, min_num=min_num, max_num=max_num)}")
+
+    if guess == 'h' or guess == 'H':
+        guess = get_hints(game)
+
     return guess
 
+def get_hints(game):
+    print("\nYOU want a hint.\n")
+    guess = get_user_guess(game)
+    return guess
 
 def play_mastermind():
     # play game

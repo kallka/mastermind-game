@@ -65,7 +65,9 @@ def get_user_input_yes_no(break_loop_max):
     user_response = ''
     break_loop = 0
 
-    while (user_response not in YES_RESPONSES) and (user_response not in NO_RESPONSES) and break_loop < 5:
+    while (user_response not in YES_RESPONSES) \
+            and (user_response not in NO_RESPONSES) \
+            and break_loop < break_loop_max:
         if break_loop > 0:
             print(f"\n{INVALID_RESPONSE}")
         user_response = input(f"\n{PLAY_GAME}").lower()
@@ -75,6 +77,11 @@ def get_user_input_yes_no(break_loop_max):
 
 
 def get_user_guess(game):
+    '''
+
+    :param game:
+    :return:
+    '''
     print(f"{REMAINING_TURNS.format(turns=game.remaining_turns())}\t{GET_HINT}")
 
     entries, min_num, max_num = game.current_game.get_code_entries(), \

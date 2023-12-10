@@ -35,7 +35,7 @@ INSTRUCTIONS = ""
 
 INVALID_RESPONSE = "That was not a valid response. Please try again."
 
-INVALID_RESPONSE_AND_EXIT = "I am sorry. Your input is not matching valid yes or no response. " \
+INVALID_RESPONSE_AND_EXIT = "I am sorry. Your input does not match a valid yes or no response. " \
                             "\n The program will now exit. Please try again later."
 
 LOST_GAME = "Game lost. The correct answer was {answer}. :( Better luck next time!"

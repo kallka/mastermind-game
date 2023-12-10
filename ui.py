@@ -46,7 +46,7 @@ def ask_to_play():
 
         if break_loop == break_loop_max:
             print(f"{INVALID_RESPONSE_AND_EXIT}")
-            return
+            return INVALID_RESPONSE_AND_EXIT
 
         if user_response in YES_RESPONSES:
             play_mastermind()
@@ -107,10 +107,15 @@ def get_hints(game):
 
 
 def play_mastermind():
+    '''
+    Prints instructions and creates an instance of the game.
+    Performs a while loop to make guesses while turns remain.
+    :return: None
+    '''
     # print instructions and check turns
     print(INSTRUCTIONS)
 
-    # TODO: This where the game could include more than 1 user.
+    # TODO: This where the game could include more than 1 user. Can include set for CodeBreaker's answer code.
     # A GameManager class might help control play as users increase.
     game = CodeBreaker()
 

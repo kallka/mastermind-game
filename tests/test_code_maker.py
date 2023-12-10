@@ -19,7 +19,6 @@ class TestCodeMaker(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-
     # Is object created by CodeMaker class and can initialized values be updated?
     def test_create_CodeMaker_object(self):
         self.assertIsNotNone(self.code_maker, "CodeMaker object created.")

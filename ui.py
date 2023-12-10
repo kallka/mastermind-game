@@ -32,21 +32,19 @@ from messages_constants import WELCOME, PLAY_GAME, INSTRUCTIONS, GOODBYE, YES_RE
 def ask_to_play():
     '''
     Sets up loop that asks player if they would like to play the game(s).
-    Returns when player declines to play another game.
+    Player needs to return a valid yes/no response from get_user_input_yes_no in order for loop to continue.
+    If break_loop return from get_user_input_yes_no function is equal to the break_loop_max (number of tries
+    given to a playerr to attempt correct input), the program returns.
+    Returns when player declines to play another game or break_loop_max reached.
     '''
     play = True
 
     while play:
-        user_response = ""
-        break_loop = 0
+        # include a break_loop_max to specify how many turns a player can attempt to enter yes/no
+        break_loop_max = 5
+        user_response, break_loop = get_user_input_yes_no(break_loop_max)
 
-        while (user_response not in YES_RESPONSES) and (user_response not in NO_RESPONSES) and break_loop < 5:
-            if break_loop > 0:
-                print(f"\n{INVALID_RESPONSE}")
-            user_response = input(f"\n{PLAY_GAME}").lower()
-            break_loop += 1
-
-        if break_loop == 5:
+        if break_loop == break_loop_max:
             print(f"{INVALID_RESPONSE_AND_EXIT}")
             return
 
@@ -55,6 +53,25 @@ def ask_to_play():
 
         else:
             play = False
+
+
+def get_user_input_yes_no(break_loop_max):
+    '''
+    Gets a yes or no user response. Loops through request to get input until a user either
+    returns a valid yes/no (ex. 'YES, yES, y, No, N, no') or until the break_loop_max is reached.
+    If the user can't return a valid response in this many times, the program returns.
+    Returns: user_response, break_loop so that another function knows valid response or if max was reached.
+    '''
+    user_response = ''
+    break_loop = 0
+
+    while (user_response not in YES_RESPONSES) and (user_response not in NO_RESPONSES) and break_loop < 5:
+        if break_loop > 0:
+            print(f"\n{INVALID_RESPONSE}")
+        user_response = input(f"\n{PLAY_GAME}").lower()
+        break_loop += 1
+
+    return user_response, break_loop
 
 
 def get_user_guess(game):

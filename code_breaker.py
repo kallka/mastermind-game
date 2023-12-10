@@ -73,7 +73,9 @@ class CodeBreaker:
             min_num, max_num = self.current_game.min_num, self.current_game.max_num
 
             for idx, str_num in enumerate(guess):
-                int_num = ord(str_num) - 48           # ascii values: 48-57 are 0-9
+                # Convert to ascii values (48-57 are 0-9) as directly converting to integer value causes problems
+                # with some noninteger values.
+                int_num = ord(str_num) - 48
                 if max_num >= int_num >= min_num:
                     guess[idx] = int_num
                     valid = True
@@ -90,11 +92,17 @@ class CodeBreaker:
         if self.hints == 0:
             print(HINT_1)
         elif self.hints == 1:
-            print(self.match_place_and_value())
+            print(self.hints_matches_place_and_value())
             self.hints += 1
         return
 
-    def match_place_and_value(self):
+    def hints_all_possible_values(self):
+        return
+
+    def hints_matches_value_only(self):
+        return
+
+    def hints_matches_place_and_value(self):
         hint = "placeholder"
         place_and_value_guesses = []
         for idx, match in enumerate(self.guess_feedback):

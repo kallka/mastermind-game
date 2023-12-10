@@ -70,14 +70,20 @@ def get_user_guess(game):
 
     return guess
 
+
 def get_hints(game):
+    # TODO: Implement hints of various levels.
     print("\nYOU want a hint.\n")
     guess = get_user_guess(game)
     return guess
 
+
 def play_mastermind():
-    # play game
+    # print instructions and check turns
     print(INSTRUCTIONS)
+
+    # TODO: This where the game could include more than 1 user.
+    # A GameManager class might help control play as users increase.
     game = CodeBreaker()
 
     while game.remaining_turns() > 0:

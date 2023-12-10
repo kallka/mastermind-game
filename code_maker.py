@@ -69,9 +69,11 @@ class CodeMaker:
     #                                       decrement_turns / increment_turns                                          #
     ####################################################################################################################
     def decrement_turns(self):
+        '''Can be used to decrement turns if a user gets a hint.'''
         self.turns -= 1
 
     def increment_turns(self):
+        '''Can be used to increment turns if user wants one more try.'''
         self.turns += 1
 
     ####################################################################################################################
@@ -100,7 +102,7 @@ class CodeMaker:
         headers = {'Content-type': 'application/json', 'Content-Length': '200', 'Accept': 'application/json'}
         data = json.dumps(raw_data)
 
-        # TODO: Find an exception to raise for 503 Service Unavailable Error
+        # TODO: Find an exception to raise for 503 Service Unavailable Error to use try/except
         # send request and receive response
         response = requests.post(
             url='https://api.random.org/json-rpc/2/invoke',
@@ -133,18 +135,19 @@ class CodeMaker:
             format_guess, format_answer = self.int_list_to_string(guess), self.int_list_to_string(self.answer_code)
             if win:
                 print(f"{WON_GAME.format(guess=format_guess, answer=format_answer)}")
+                # must change turns to 0 to trigger end of loop in ui.py
                 self.turns = 0
             else:
                 print(f"{LOST_GAME.format(answer=format_answer)}")
         return matches
 
-    def check_end_of_game(self, correct):
+    def check_end_of_game(self, num_correct_guesses):
         end = False
         win = False
 
-        if self.turns < 1 or correct == self.code_entries:
+        if self.turns < 1 or num_correct_guesses == self.code_entries:
             end = True
-            if correct == self.code_entries:
+            if num_correct_guesses == self.code_entries:
                 win = True
 
         return end, win

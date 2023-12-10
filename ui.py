@@ -60,7 +60,8 @@ def get_user_input_yes_no(break_loop_max):
     Gets a yes or no user response. Loops through request to get input until a user either
     returns a valid yes/no (ex. 'YES, yES, y, No, N, no') or until the break_loop_max is reached.
     If the user can't return a valid response in this many times, the program returns.
-    Returns: user_response, break_loop so that another function knows valid response or if max was reached.
+    :param break_loop_max: max number of times to ask for valid response
+    :return: user_response, break_loop so that another function knows valid response or if max was reached
     '''
     user_response = ''
     break_loop = 0
@@ -78,9 +79,12 @@ def get_user_input_yes_no(break_loop_max):
 
 def get_user_guess(game):
     '''
-
-    :param game:
-    :return:
+    Alerts the user about remaining turns and gets user's code guess.
+    Informs user as to current parameters for guess.
+    Validation is performed in the play_mastermind() function after guess is returned.
+    Additionally, user can input 'h' to get a hint.
+    :param game: The instance of game created by the player (CodeBreaker).
+    :return: guess (input from player)
     '''
     print(f"{REMAINING_TURNS.format(turns=game.remaining_turns())}\t{GET_HINT}")
 

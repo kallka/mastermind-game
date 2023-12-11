@@ -29,10 +29,12 @@ GUESS_FEEDBACK = "You guessed: {guess} ... " \
                  "\t-> {match_value_place} matched value and place. " \
                  "\t-> {match_value} matched value, invalid place."
 
-HINT_0 = "Try at least one guess before asking for a hint..."
+HINT_0 = "**HINT: Try two pairs of random numbers between {min_num} and {max_num}. The minimum and " \
+         "maximum number may be included in your guess. Example: 0011.\n"
 
-HINT_1 = "Try two pairs of random numbers between {min_num} and {max_num}. The minimum and" \
-         "maximum number may be included in your guess."
+HINT_1 = "**HINT: Look at your last entry. You had a total of {total} correct. That means of those numbers, " \
+         "{total} need to be in your next guess. \nIf you need more help, ask for another hint and I will provide " \
+         "an educated guess. \n"
 
 INSTRUCTIONS = "\n\tINSTRUCTIONS\n" \
                "1.) At the start of the game the computer will randomly select a pattern of {code_entries} different " \

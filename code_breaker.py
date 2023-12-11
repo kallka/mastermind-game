@@ -88,38 +88,48 @@ class CodeBreaker:
         '''
         valid = False
 
-        if guess is None:
-            return valid, guess
+        if guess:
+            if len(guess) == self.current_game.code_entries:
+                guess = list(guess)
+                min_num, max_num = self.current_game.min_num, self.current_game.max_num
 
-        if len(guess) == self.current_game.code_entries:
-            guess = list(guess)
-            min_num, max_num = self.current_game.min_num, self.current_game.max_num
-
-            for idx, str_num in enumerate(guess):
-                # Convert to ascii values (48-57 are 0-9) as directly converting to integer value causes problems
-                # with some non-integer values.
-                int_num = ord(str_num) - 48
-                if max_num >= int_num >= min_num:
-                    guess[idx] = int_num
-                    valid = True
-                else:
-                    valid = False
-                    break
+                for idx, str_num in enumerate(guess):
+                    # Convert to ascii values (48-57 are 0-9) as directly converting to integer value causes problems
+                    # with some non-integer values.
+                    int_num = ord(str_num) - 48
+                    if max_num >= int_num >= min_num:
+                        guess[idx] = int_num
+                        valid = True
+                    else:
+                        valid = False
+                        break
 
         return valid, guess
 
     ####################################################################################################################
     #                                 hints                                                                            #
     ####################################################################################################################
-    def hints(self):
+    def hints_manager(self) -> str:
+        '''
+        Calculates how many guesses a player has made and makes a determination about what hint is appropriate
+        Increments self.hints to track hints. Self.hints can later be used to deduct turns or calculate score.
+        :return: A string response to be printed by the UI.
+        '''
+        min_num = self.current_game.get_min_num()
+        max_num = self.current_game.get_max_num()
         if len(self.guesses) == 0:
-            print(HINT_0)
-        elif self.hints == 1:
-            print(HINT_1.format(min_num=self.current_game.get_min_num(), max_num=self.current_game.get_max_num()))
-            self.hints += 1
+            return HINT_0.format(min_num=min_num, max_num=max_num)
         else:
-            self.hint_educated_guess()
-        return
+            total = 0
+            for feedback in self.guess_feedback:
+                total += feedback[0] + feedback[1]
+
+            if len(self.guesses) > 0 and self.hints == 0:
+                self.hints += 1
+                return HINT_1.format(min_num=min_num, max_num=max_num, total=total)
+            else:
+                self.hints += 1
+                return self.hint_educated_guess()
 
     def hint_educated_guess(self):
         # Steps
@@ -129,7 +139,7 @@ class CodeBreaker:
             #       - if yes, return not yet guessed nums list
             # 3. Matches < code_entries?
             #       - review past entries and select at least as many in correct place
-        return
+        return "placeholder"
 
     def hints_all_possible_values(self):
         return

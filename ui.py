@@ -105,7 +105,7 @@ def get_user_guess(game: object) -> str:
 def get_hints(game: object) -> str:
     # TODO: Implement hints of various levels.
     # Implement hint functions here.
-    print("\nYOU want a hint.\n")
+    print(game.hints_manager())
     # Will create a recursive loop until user is done with hints.
     guess = get_user_guess(game)
     return guess

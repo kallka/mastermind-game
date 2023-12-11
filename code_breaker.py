@@ -43,6 +43,10 @@ class CodeBreaker:
     ####################################################################################################################
     @classmethod
     def set_new_game(cls) -> object:
+        '''
+        Creates a new game by creating instance of CodeMaker object and generating random code.
+        :return: A new game (object).
+        '''
         new_game = CodeMaker()
         new_game.create_random_code()
         return new_game

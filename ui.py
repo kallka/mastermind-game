@@ -117,12 +117,16 @@ def play_mastermind() -> None:
     Performs a while loop to make guesses while turns remain.
     :return: None
     '''
-    # print instructions and check turns
-    print(INSTRUCTIONS)
-
     # TODO: This where the game could include more than 1 user. Can include set for CodeBreaker's answer code.
     # A GameManager class might help control play as users increase.
     game = CodeBreaker()
+
+    # print instructions and check turns
+    code_entries = game.current_game.get_code_entries()
+    min_num = game.current_game.get_min_num()
+    max_num = game.current_game.get_max_num()
+    turns = game.current_game.get_turns()
+    print(INSTRUCTIONS.format(code_entries=code_entries, min_num=min_num, max_num=max_num, turns=turns))
 
     while game.remaining_turns() > 0:
         guess = get_user_guess(game)

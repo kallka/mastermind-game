@@ -35,12 +35,12 @@ HINT_1 = "Try two pairs of random numbers between {min_num} and {max_num}. The m
          "maximum number may be included in your guess."
 
 INSTRUCTIONS = "\n\tINSTRUCTIONS\n" \
-               "1.) At the start of the game the computer will randomly select a pattern of four different " \
-               "numbers from a total of 8 different numbers. " \
-               "\n2.) A player will have 10 attempts to guess the number combinations." \
-               "\n3.) At the end of each guess, computer will provide one of the feedback that tells the player" \
-               "how many guesses matched correct value and place and how many matched only value." \
-               "\n* Examples: (Assume secret code answer is: 1234.)" \
+               "1.) At the start of the game the computer will randomly select a pattern of {code_entries} different " \
+               "numbers between the range of {min_num} and {max_num}, inclusive. " \
+               "\n2.) A player will have {turns} attempts to guess the number combinations." \
+               "\n3.) At the end of each guess, computer will provide feedback that tells the player " \
+               "how many guesses matched correct value and place, and how many guesses matched only value." \
+               "\n* EXAMPLE: (Assume secret code answer is: 1234 and accepted values are between 0-7.)" \
                "\n\t- You guessed: < 0000 >... 0 matched value and place. 0 matched value, invalid place." \
                "\n\t- You guessed: < 4321 >... 0 matched value and place. 4 matched value, invalid place." \
                "\n\t- You guessed: < 1122 >... 1 matched value and place. 1 matched value, invalid place." \

@@ -88,6 +88,9 @@ class CodeBreaker:
         '''
         valid = False
 
+        if guess is None:
+            return valid, guess
+
         if len(guess) == self.current_game.code_entries:
             guess = list(guess)
             min_num, max_num = self.current_game.min_num, self.current_game.max_num

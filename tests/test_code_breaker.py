@@ -27,13 +27,33 @@ class TestCodeBreaker(unittest.TestCase):
     def test_request_new_game(self):
         self.assertIsNotNone(self.code_breaker.current_game)
 
-    # Valid entries for helper_validate_make_guess?
+    # Valid return from make_guess based on valid or invalid guesses?
     def test_make_guess(self):
         guesses = [['12345678', False], ['1111', True], ['2222', True], ['9999', False],
                    ['-1-1', False], ['7070', True]]
         for entry in guesses:
             valid, guess = self.code_breaker.helper_validate_make_guess(entry[0])
             self.assertIs(valid, entry[1], "Input should be same length as code_entries.")
+
+    # Is helper function correctly turning guess into list of ints?
+    def helper_validate_make_guess(self):
+        guess = ['1234']
+        valid, guess_list = self.code_breaker.helper_validate_make_guess(guess)
+        self.assertEqual(guess_list, [1, 2, 3, 4], "Needs to turn string into valid list of integers.")
+
+    # Does helper function get thrown by odd text entries?
+    def helper_validate_make_guess(self):
+        guesses = ['\0', None, 'hhhh', 'None', 'NULL', '1234\n']
+        for idx in range(len(guesses)):
+            valid, guess_list = self.code_breaker.helper_validate_make_guess(guesses[idx])
+            self.assertIsNot(valid, "Odd input not handled properly.")
+
+    # Does helper function accept valid entries?
+    def helper_validate_make_guess(self):
+        guesses = ['0011', '2233', '4455', '6677', '1111', '7654']
+        for idx in range(len(guesses)):
+            valid, guess_list = self.code_breaker.helper_validate_make_guess(guesses[idx])
+            self.assertIs(valid, "Valid entries rejected.")
 
 
 if __name__ == "__main__":

@@ -42,7 +42,7 @@ class CodeBreaker:
     #                                 set_new_game                                                                     #
     ####################################################################################################################
     @classmethod
-    def set_new_game(cls):
+    def set_new_game(cls) -> object:
         new_game = CodeMaker()
         new_game.create_random_code()
         return new_game
@@ -51,7 +51,15 @@ class CodeBreaker:
     #                                make_guess                                                                        #
     #                                helper_validate_make_guess                                                        #
     ####################################################################################################################
-    def make_guess(self, guess):
+    def make_guess(self, guess: str) -> bool:
+        '''
+        Takes a user guess (string) and determines if it is valid. If guess is invalid, immediately returns False.
+        If guess is valid, guess is appended to self.guesses and sent to CodeMaker to get feedback on
+        corrrect/incorrect matches. Feedback from the CodeMaker is appended to self.guess_feedback.
+        Returns if guess was valid, returns True.
+        :param guess: A string representing player's guess.
+        :return: Boolean value of True if guess was valid or False if guess was invalid.
+        '''
         valid, guess = self.helper_validate_make_guess(guess)
         if valid is False:
             return valid
@@ -64,7 +72,16 @@ class CodeBreaker:
         # returns True for guess is valid
         return valid
 
-    def helper_validate_make_guess(self, guess):
+    def helper_validate_make_guess(self, guess: str) -> tuple[bool, list[int]]:
+        '''
+        Takes the player's guess (string), if length of guess matches code entries,
+        turns into a list of integers by converting to ascii values. (*Note int() does not work well
+        as certain string values do not convert smoothly to ints.) Confirms that each guess digit is within
+        specified parameters and then returns a tuple representing (valid, converted guess).
+        If guess was valid, valid = True.
+        :param guess: A string representing the player's guess.
+        :return: A tuple (valid, guess) where valid is True if the guess was valid and guess is now a list of integers.
+        '''
         valid = False
 
         if len(guess) == self.current_game.code_entries:

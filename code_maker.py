@@ -68,23 +68,23 @@ class CodeMaker:
     ####################################################################################################################
     #                                       decrement_turns / increment_turns                                          #
     ####################################################################################################################
-    def decrement_turns(self) -> int:
+    def decrement_turns(self) -> None:
         '''Can be used to decrement turns if a user gets a hint.'''
         self.turns -= 1
 
-    def increment_turns(self) -> int:
+    def increment_turns(self) -> None:
         '''Can be used to increment turns if user wants one more try.'''
         self.turns += 1
 
     ####################################################################################################################
     #                                       create_random_code                                                         #
     ####################################################################################################################
-    def create_random_code(self) -> list[int]:
+    def create_random_code(self) -> None:
         '''
         Connect to random.org API to generate 4 random numbers 0-7 inclusive. Returns a json response that includes
         4 randomly generated numbers in given range. If an error occurs connecting to random.org the HTTP status
         code will be 503.
-        :return: a list of 4 random integers
+        :return: Modifies self.answer_code with a list of 4 random integers.
         '''
         # set up data for json request
         raw_data = {
@@ -119,13 +119,13 @@ class CodeMaker:
     #                               PROCESS GUESSES:  - process_guess                                                  #
     #                                                 - check_player_guess                                             #
     ####################################################################################################################
-    def process_guess(self, guess: str) -> list[int]:
+    def process_guess(self, guess: str) -> tuple[int, int]:
         '''
         Takes a pre-validated guess(string) from the user, checks the guess against the answer, decrements turns,
-        provides feedback, and checks if the game has ended. If game has not ended, returns matches
-        [matched_value_and_place, matched_value].
+        provides feedback, and checks if the game has ended. If game has not ended, returns matches tuple
+        (matched_value_and_place, matched_value).
         :param guess: A validated string provided by the player representing current guess.
-        :return: A list of 2 ints representing [matched_value_and_place, matched_value].
+        :return: A tuple of 2 ints representing (matched_value_and_place, matched_value).
         '''
         # check valid guess
         matches = self.check_player_guess(guess)
@@ -149,10 +149,17 @@ class CodeMaker:
 
         return matches
 
-    def check_end_of_game(self, num_correct_guesses):
+    def check_end_of_game(self, num_correct_guesses: int) -> tuple[bool, bool]:
+        '''
+        Checks if the game has ended by checking if turns are used up and/or if the player's correct
+        matched_value_and_place guesses equal the number of code entries.
+        :param num_correct_guesses: int representing number of guesses that matched value and place.
+        :return: tuple(bool, bool) representing end (to signal end game) and win result.
+        '''
         end = False
         win = False
 
+        # number_correct_guesses corresponds to matched value - if this matches code_entries, game is won
         if self.turns < 1 or num_correct_guesses == self.code_entries:
             end = True
             if num_correct_guesses == self.code_entries:

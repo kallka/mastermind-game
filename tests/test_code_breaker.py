@@ -1,6 +1,5 @@
 # Author: Karina Kallas
-# Date Last Tested: Dec. 6, 2023
-
+# Date Last Tested: Dec. 11, 2023
 
 import unittest
 from code_breaker import *
@@ -41,18 +40,15 @@ class TestCodeBreaker(unittest.TestCase):
         valid, guess_list = self.code_breaker.helper_validate_make_guess(guess)
         self.assertEqual(guess_list, [1, 2, 3, 4], "Needs to turn string into valid list of integers.")
 
-    # Does helper function get thrown by odd text entries?
+    # Does helper function properly handle valid and invalid guesses>
     def helper_validate_make_guess(self):
-        guesses = ['\0', None, 'hhhh', 'None', 'NULL', '1234\n']
-        for idx in range(len(guesses)):
-            valid, guess_list = self.code_breaker.helper_validate_make_guess(guesses[idx])
+        guesses_false = ['\0', None, 'hhhh', 'None', 'NULL', '1234\n']
+        guesses_true = ['0011', '2233', '4455', '6677', '1111', '7654']
+        for idx in range(len(guesses_false)):
+            valid, guess_list = self.code_breaker.helper_validate_make_guess(guesses_false[idx])
             self.assertIsNot(valid, "Odd input not handled properly.")
-
-    # Does helper function accept valid entries?
-    def helper_validate_make_guess(self):
-        guesses = ['0011', '2233', '4455', '6677', '1111', '7654']
-        for idx in range(len(guesses)):
-            valid, guess_list = self.code_breaker.helper_validate_make_guess(guesses[idx])
+        for idx in range(len(guesses_true)):
+            valid, guess_list = self.code_breaker.helper_validate_make_guess(guesses_true[idx])
             self.assertIs(valid, "Valid entries rejected.")
 
 

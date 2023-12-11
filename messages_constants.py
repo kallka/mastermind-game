@@ -1,5 +1,5 @@
 # Author: Karina Kallas
-# Date Last Modified: Dec. 10, 2023
+# Date Last Modified: Dec. 11, 2023
 #
 # Project Name: Master Mind
 # Project Description:  A game which can be played by a user "against" the computer.

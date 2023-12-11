@@ -27,9 +27,8 @@ from messages_constants import HINT_0, HINT_1
 #                                                                                                                      #
 # CLASS:    CodeBreaker                                                                                                #
 #                                                                                                                      #
-#           Description: Controls making guess, validating guess, and tracking guesses and feedback.                   #
-#           Methods:    - set_new_game                                                                                 #
-#                       - make_guess                                                                                   #
+#           Description: Controls making guess, validating guess in corrrect parameters, hints,                        #
+#           and tracking guesses and feedback.                                                                         #
 #                                                                                                                      #
 # #################################################################################################################### #
 class CodeBreaker:

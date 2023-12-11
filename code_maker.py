@@ -30,10 +30,7 @@ from messages_constants import RANDOMDOTORG_APIKEY, LOST_GAME, WON_GAME, GUESS_F
 #                                                                                                                      #
 # CLASS:    CodeMaker                                                                                                  #
 #                                                                                                                      #
-#           Description: Controls making code, validating answers, and tracking turns.                                 #
-#           Methods:    - decrement_turns                                                                              #
-#                       - increment_turns                                                                              #
-#                       - create_random_code                                                                           #
+#           Description: Controls making code, validating answers, tracking turns, and checking end of game.           #
 #                                                                                                                      #
 # #################################################################################################################### #
 class CodeMaker:
@@ -117,6 +114,7 @@ class CodeMaker:
 
     ####################################################################################################################
     #                               PROCESS GUESSES:  - process_guess                                                  #
+    #                                                 - check_end_of_game                                              #
     #                                                 - check_player_guess                                             #
     ####################################################################################################################
     def process_guess(self, guess: str) -> tuple[int, int]:

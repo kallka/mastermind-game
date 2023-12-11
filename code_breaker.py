@@ -20,7 +20,7 @@
 #                                                                                                                      #
 # #################################################################################################################### #
 from code_maker import CodeMaker
-from messages_constants import HINT_1
+from messages_constants import HINT_0, HINT_1
 
 
 # #################################################################################################################### #
@@ -74,7 +74,7 @@ class CodeBreaker:
 
             for idx, str_num in enumerate(guess):
                 # Convert to ascii values (48-57 are 0-9) as directly converting to integer value causes problems
-                # with some noninteger values.
+                # with some non-integer values.
                 int_num = ord(str_num) - 48
                 if max_num >= int_num >= min_num:
                     guess[idx] = int_num
@@ -89,11 +89,23 @@ class CodeBreaker:
     #                                 hints                                                                            #
     ####################################################################################################################
     def hints(self):
-        if self.hints == 0:
-            print(HINT_1)
+        if len(self.guesses) == 0:
+            print(HINT_0)
         elif self.hints == 1:
-            print(self.hints_matches_place_and_value())
+            print(HINT_1.format(min_num=self.current_game.get_min_num(), max_num=self.current_game.get_max_num()))
             self.hints += 1
+        else:
+            self.hint_educated_guess()
+        return
+
+    def hint_educated_guess(self):
+        # Steps
+            # 1. Is total number of matches (all kinds) == code_entries?
+            #       - if yes, move around entries based on last guesses
+            # 2. Is total matches == 0:
+            #       - if yes, return not yet guessed nums list
+            # 3. Matches < code_entries?
+            #       - review past entries and select at least as many in correct place
         return
 
     def hints_all_possible_values(self):
@@ -109,7 +121,8 @@ class CodeBreaker:
             # find all guesses where match and place ok
             if match[0] != 0:
                 place_and_value_guesses.append([self.guesses[idx]])
-                # do depth first search to determine which numbers are the same?
+                # Can we do a depth first search comparing all matched value/place
+                # to all matched value?
 
         return hint
 

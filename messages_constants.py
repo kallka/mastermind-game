@@ -29,7 +29,10 @@ GUESS_FEEDBACK = "You guessed: {guess} ... " \
                  "\t-> {match_value_place} matched value and place. " \
                  "\t-> {match_value} matched value, invalid place."
 
-HINT_1 = "Try at least one guess before asking for a hint..."
+HINT_0 = "Try at least one guess before asking for a hint..."
+
+HINT_1 = "Try two pairs of random numbers between {min_num} and {max_num}. The minimum and" \
+         "maximum number may be included in your guess."
 
 INSTRUCTIONS = ""
 

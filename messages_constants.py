@@ -34,7 +34,19 @@ HINT_0 = "Try at least one guess before asking for a hint..."
 HINT_1 = "Try two pairs of random numbers between {min_num} and {max_num}. The minimum and" \
          "maximum number may be included in your guess."
 
-INSTRUCTIONS = ""
+INSTRUCTIONS = "\n\tINSTRUCTIONS\n" \
+               "1.) At the start of the game the computer will randomly select a pattern of four different " \
+               "numbers from a total of 8 different numbers. " \
+               "\n2.) A player will have 10 attempts to guess the number combinations." \
+               "\n3.) At the end of each guess, computer will provide one of the feedback that tells the player" \
+               "how many guesses matched correct value and place and how many matched only value." \
+               "\n* Examples: (Assume secret code answer is: 1234.)" \
+               "\n\t- You guessed: < 0000 >... 0 matched value and place. 0 matched value, invalid place." \
+               "\n\t- You guessed: < 4321 >... 0 matched value and place. 4 matched value, invalid place." \
+               "\n\t- You guessed: < 1122 >... 1 matched value and place. 1 matched value, invalid place." \
+               "\n\t- You guessed: < 1234 >... 4 matched value and place. 0 matched value, invalid place." \
+               "\n**The game is won when a player guesses all correct integers in the correct order. " \
+               "The game is lost if the player runs out of turns.\n"
 
 INVALID_RESPONSE = "That was not a valid response. Please try again."
 

@@ -29,7 +29,7 @@ from messages_constants import WELCOME, PLAY_GAME, INSTRUCTIONS, GOODBYE, YES_RE
 #      - play_mastermind()                                                                                             #
 #                                                                                                                      #
 # #################################################################################################################### #
-def ask_to_play():
+def ask_to_play() -> None:
     '''
     Sets up loop that asks player if they would like to play the game(s).
     Player needs to return a valid yes/no response from get_user_input_yes_no in order for loop to continue.
@@ -55,13 +55,13 @@ def ask_to_play():
             play = False
 
 
-def get_user_input_yes_no(break_loop_max):
+def get_user_input_yes_no(break_loop_max: int) -> tuple:
     '''
     Gets a yes or no user response. Loops through request to get input until a user either
     returns a valid yes/no (ex. 'YES, yES, y, No, N, no') or until the break_loop_max is reached.
     If the user can't return a valid response in this many times, the program returns.
     :param break_loop_max: max number of times to ask for valid response
-    :return: user_response, break_loop so that another function knows valid response or if max was reached
+    :return: user_response (string), break_loop (int) so that another function knows valid response or if max was reached
     '''
     user_response = ''
     break_loop = 0
@@ -71,20 +71,23 @@ def get_user_input_yes_no(break_loop_max):
             and break_loop < break_loop_max:
         if break_loop > 0:
             print(f"\n{INVALID_RESPONSE}")
-        user_response = input(f"\n{PLAY_GAME}").lower()
+        user_response = input(f"\n{PLAY_GAME}")
+        # check for NONE
+        if user_response:
+            user_response = user_response.lower()
         break_loop += 1
 
     return user_response, break_loop
 
 
-def get_user_guess(game):
+def get_user_guess(game: object) -> str:
     '''
     Alerts the user about remaining turns and gets user's code guess.
     Informs user as to current parameters for guess.
     Validation is performed in the play_mastermind() function after guess is returned.
     Additionally, user can input 'h' to get a hint.
     :param game: The instance of game created by the player (CodeBreaker).
-    :return: guess (input from player)
+    :return: guess (string input from player)
     '''
     print(f"{REMAINING_TURNS.format(turns=game.remaining_turns())}\t{GET_HINT}")
 
@@ -99,14 +102,16 @@ def get_user_guess(game):
     return guess
 
 
-def get_hints(game):
+def get_hints(game: object) -> str:
     # TODO: Implement hints of various levels.
+    # Implement hint functions here.
     print("\nYOU want a hint.\n")
+    # Will create a recursive loop until user is done with hints.
     guess = get_user_guess(game)
     return guess
 
 
-def play_mastermind():
+def play_mastermind() -> None:
     '''
     Prints instructions and creates an instance of the game.
     Performs a while loop to make guesses while turns remain.

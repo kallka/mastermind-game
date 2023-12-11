@@ -50,36 +50,36 @@ class CodeMaker:
     #                                       - get_max_num                                                              #
     #                                       - get_answer_code                                                          #
     ####################################################################################################################
-    def get_turns(self):
+    def get_turns(self) -> int:
         return self.turns
 
-    def get_min_num(self):
+    def get_min_num(self) -> int:
         return self.min_num
 
-    def get_max_num(self):
+    def get_max_num(self) -> int:
         return self.max_num
 
-    def get_code_entries(self):
+    def get_code_entries(self) -> int:
         return self.code_entries
 
-    def get_answer_code(self):
+    def get_answer_code(self) -> list[int]:
         return self.answer_code
 
     ####################################################################################################################
     #                                       decrement_turns / increment_turns                                          #
     ####################################################################################################################
-    def decrement_turns(self):
+    def decrement_turns(self) -> int:
         '''Can be used to decrement turns if a user gets a hint.'''
         self.turns -= 1
 
-    def increment_turns(self):
+    def increment_turns(self) -> int:
         '''Can be used to increment turns if user wants one more try.'''
         self.turns += 1
 
     ####################################################################################################################
     #                                       create_random_code                                                         #
     ####################################################################################################################
-    def create_random_code(self):
+    def create_random_code(self) -> list[int]:
         '''
         Connect to random.org API to generate 4 random numbers 0-7 inclusive. Returns a json response that includes
         4 randomly generated numbers in given range. If an error occurs connecting to random.org the HTTP status
@@ -119,7 +119,14 @@ class CodeMaker:
     #                               PROCESS GUESSES:  - process_guess                                                  #
     #                                                 - check_player_guess                                             #
     ####################################################################################################################
-    def process_guess(self, guess):
+    def process_guess(self, guess: str) -> list[int]:
+        '''
+        Takes a pre-validated guess(string) from the user, checks the guess against the answer, decrements turns,
+        provides feedback, and checks if the game has ended. If game has not ended, returns matches
+        [matched_value_and_place, matched_value].
+        :param guess: A validated string provided by the player representing current guess.
+        :return: A list of 2 ints representing [matched_value_and_place, matched_value].
+        '''
         # check valid guess
         matches = self.check_player_guess(guess)
         # remove a turn
@@ -139,6 +146,7 @@ class CodeMaker:
                 self.turns = 0
             else:
                 print(f"{LOST_GAME.format(answer=format_answer)}")
+
         return matches
 
     def check_end_of_game(self, num_correct_guesses):

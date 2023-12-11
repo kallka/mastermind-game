@@ -1,5 +1,5 @@
 # Author: Karina Kallas
-# Date Last Tested: Dec. 10, 2023
+# Date Last Tested: Dec. 11, 2023
 
 import unittest
 from unittest.mock import patch, MagicMock
@@ -18,7 +18,6 @@ class TestUI(unittest.TestCase):
         self.mock_game.get_code_entries = 4
         self.mock_game.min_num = 0
         self.mock_game.max_num = 7
-        pass
 
     def tearDown(self) -> None:
         pass
@@ -71,14 +70,6 @@ class TestUI(unittest.TestCase):
         result = get_user_guess(self.mock_game)
         # Will loop twice as input invalid (esc)
         self.assertEqual(result, '0123', "The function 'get_user_guess' does not return expected input of '0123'.")
-
-    # Test valid input is returned
-    @patch('builtins.input', lambda *args: '0123')
-    def test_get_user_guess(self):
-        result = get_user_guess(self.mock_game)
-        # Will loop twice as input invalid (esc)
-        self.assertEqual(result, '0123', "The function 'get_user_guess' does not return expected input of '0123'.")
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,5 +1,5 @@
 # Author: Karina Kallas
-# Date Last Modified: Dec. 8, 2023
+# Date Last Modified: Dec. 11, 2023
 #
 # Project Name: Master Mind
 # Project Description:  A game which can be played by a user "against" the computer.
@@ -167,11 +167,11 @@ class CodeMaker:
 
         return end, win
 
-    def check_player_guess(self, guess):
+    def check_player_guess(self, guess: list[int]) -> tuple[int, int]:
         '''
         Checks the current guess from the code breaker for matches of index and value as well as matches of value only.
         :param guess: The current guess from the code breaker. A list of ints.
-        :return: match_value_and_place, match_value_only
+        :return: A tuple representing (match_value_and_place, match_value_only).
         '''
         # create a list to store index of items that did not match and result
         guess_idx_not_matched = []
@@ -199,7 +199,12 @@ class CodeMaker:
     #                       PROCESS FOR PRINTING:  - int_list_to_string                                                #
     #                                                                                                                  #
     ####################################################################################################################
-    def int_list_to_string(self, int_list):
+    def int_list_to_string(self, int_list: list[int]) -> str:
+        '''
+        Takes a list of integers and returns a printable string.
+        :param int_list: List of integers
+        :return: String
+        '''
         return ''.join(map(str, int_list))
 
 

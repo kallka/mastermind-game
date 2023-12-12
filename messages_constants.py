@@ -66,8 +66,6 @@ RANDOMDOTORG_APIKEY = "475df9e9-d3d0-4bcd-a0c8-5db30b110daf"
 
 REMAINING_TURNS = "You have {turns} turns remaining."
 
-TRY_AGAIN = "Good guess! Please try again."
-
 WELCOME = "WELCOME TO MASTERMIND."
 
 WON_GAME = "Congratulations! You won! {guess} matches {answer}."

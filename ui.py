@@ -120,7 +120,7 @@ def play_mastermind() -> None:
     :return: None
     '''
     # TODO: This where the game could include more than 1 user. Can include set for CodeBreaker's answer code.
-    # A GameManager class might help control play as users increase.
+    # TODO: A GameManager class might help control play as users increase.
     game = CodeBreaker()
 
     # print instructions and check turns

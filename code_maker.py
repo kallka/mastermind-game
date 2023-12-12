@@ -103,18 +103,22 @@ class CodeMaker:
         headers = {'Content-type': 'application/json', 'Content-Length': '200', 'Accept': 'application/json'}
         data = json.dumps(raw_data)
 
-        # TODO: Find an exception to raise for 503 Service Unavailable Error to use try/except
-        # send request and receive response
-        response = requests.post(
-            url='https://api.random.org/json-rpc/2/invoke',
-            data=data,
-            headers=headers
-        )
+        try:
+            # send request and receive response
+            response = requests.post(
+                url='https://api.random.org/json-rpc/2/invoke',
+                data=data,
+                headers=headers
+            )
 
-        # pull random code, list of integers, from response
-        json_response = response.json()
-        code = json_response['result']['random']['data']
-        self.answer_code = code
+            # pull random code, list of integers, from response
+            json_response = response.json()
+            code = json_response['result']['random']['data']
+            self.answer_code = code
+        except requests.exceptions.HTTPError as e:
+            # TODO: Create loop in order to try again and then exit in event API unreachable.
+            if e.response.status_code == 503:
+                print("Random.org API unavailable. Please try again.")
 
     ####################################################################################################################
     #                               PROCESS GUESSES:  - process_guess                                                  #

@@ -26,6 +26,8 @@ GET_CODEBREAKER_GUESS = "Please input {code_entries} integers between {min_num} 
 
 GET_HINT = "** Type 'h' to get a hint!"
 
+GET_PRINT = "*** Type 'p' to print previous feedback and guesses!"
+
 GUESS_FEEDBACK = "You guessed: {guess} ... " \
                  "\t-> {match_value_place} matched value and place. " \
                  "\t-> {match_value} matched value, invalid place."

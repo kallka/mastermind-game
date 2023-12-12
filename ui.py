@@ -21,7 +21,7 @@
 # #################################################################################################################### #
 from code_breaker import CodeBreaker
 from messages_constants import WELCOME, PLAY_GAME, INSTRUCTIONS, GOODBYE, YES_RESPONSES, NO_RESPONSES, \
-    INVALID_RESPONSE, INVALID_RESPONSE_AND_EXIT, REMAINING_TURNS, GET_HINT, GET_CODEBREAKER_GUESS
+    INVALID_RESPONSE, INVALID_RESPONSE_AND_EXIT, REMAINING_TURNS, GET_HINT, GET_PRINT, GET_CODEBREAKER_GUESS
 
 
 # #################################################################################################################### #
@@ -91,7 +91,7 @@ def get_user_guess(game: object) -> str:
     :param game: The instance of game created by the player (CodeBreaker).
     :return: guess (string input from player)
     '''
-    print(f"{REMAINING_TURNS.format(turns=game.remaining_turns())}\t{GET_HINT}")
+    print(f"{REMAINING_TURNS.format(turns=game.remaining_turns())}\t{GET_HINT}\t{GET_PRINT}")
 
     entries, min_num, max_num = game.current_game.get_code_entries(), \
                                 game.current_game.get_min_num(), \

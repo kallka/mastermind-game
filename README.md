@@ -36,11 +36,13 @@ A game which can be played by a user "against" the computer. This is a game wher
 
 └── ui.py
 
-# Under Construction
+# Under Construction / TODO
 The following are ideas to expand and improve the program.
 1. Hints: Implemented in the CodeBreaker. The hints will act like an aide to the player. Hints start broadly and become more direct. The plan is to implement either the Knuth or Swaszek approach to mastermind. Knuth is well documented but requires high space and time complexity as it relies on first creating a list of all possible permutations of the 0-7 numbers selected for the code entries. Swaszek sacrifices a bit of run time efficiency for simplicity and may be a better option.
 2. Two Player Game: Currently, the game is configured to allow only one player to compete against a computer. The human player is always the code breaker. A Game Manager class might be implemented to allow either 2 human players or different combinations of human and computer players.
-3. UI Class: The ui.py program might benefit from being turned into a class. 
+3. UI Class: The ui.py program might benefit from being turned into a class.
+4. Try/except for Random.org API should be changed to loop through a few request tries and then exit if API is unreachable.
+5. Consider not automatically setting the random number when CodeBreaker establishes an instance of CodeMaker game object. If another human player is going to set the code, this request wastes time.
        
 # Sources
 1. https://www.random.org/clients/http/api/

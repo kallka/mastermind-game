@@ -1,5 +1,5 @@
 # Author: Karina Kallas
-# Date Last Modified: Dec. 11, 2023
+# Date Last Modified: Dec. 12, 2023
 #
 # Project Name: Master Mind
 # Project Description:  A game which can be played by a user "against" the computer.
@@ -45,12 +45,12 @@ class CodeBreaker:
     ####################################################################################################################
     #                                 set_new_game                                                                     #
     ####################################################################################################################
+    '''
+    Creates a new game by creating instance of CodeMaker object and generating random code.
+    :return: A new game (object).
+    '''
     @classmethod
     def set_new_game(cls) -> object:
-        '''
-        Creates a new game by creating instance of CodeMaker object and generating random code.
-        :return: A new game (object).
-        '''
         new_game = CodeMaker()
         new_game.create_random_code()
         return new_game
@@ -59,15 +59,15 @@ class CodeBreaker:
     #                                make_guess                                                                        #
     #                                helper_validate_make_guess                                                        #
     ####################################################################################################################
+    '''
+    Takes a user guess (string) and determines if it is valid. If guess is invalid, immediately returns False.
+    If guess is valid, guess is appended to self.guesses and sent to CodeMaker to get feedback on
+    corrrect/incorrect matches. Feedback from the CodeMaker is appended to self.guess_feedback.
+    Returns if guess was valid, returns True.
+    :param guess: A string representing player's guess.
+    :return: Boolean value of True if guess was valid or False if guess was invalid.
+    '''
     def make_guess(self, guess: str) -> bool:
-        '''
-        Takes a user guess (string) and determines if it is valid. If guess is invalid, immediately returns False.
-        If guess is valid, guess is appended to self.guesses and sent to CodeMaker to get feedback on
-        corrrect/incorrect matches. Feedback from the CodeMaker is appended to self.guess_feedback.
-        Returns if guess was valid, returns True.
-        :param guess: A string representing player's guess.
-        :return: Boolean value of True if guess was valid or False if guess was invalid.
-        '''
         valid, guess = self.helper_validate_make_guess(guess)
         if valid is False:
             return valid
@@ -80,16 +80,16 @@ class CodeBreaker:
         # returns True for guess is valid
         return valid
 
+    '''
+    Takes the player's guess (string), if length of guess matches code entries,
+    turns into a list of integers by converting to ascii values. (*Note int() does not work well
+    as certain string values do not convert smoothly to ints.) Confirms that each guess digit is within
+    specified parameters and then returns a tuple representing (valid, converted guess).
+    If guess was valid, valid = True.
+    :param guess: A string representing the player's guess.
+    :return: A tuple (valid, guess) where valid is True if the guess was valid and guess is now a list of integers.
+    '''
     def helper_validate_make_guess(self, guess: str) -> tuple[bool, list[int]]:
-        '''
-        Takes the player's guess (string), if length of guess matches code entries,
-        turns into a list of integers by converting to ascii values. (*Note int() does not work well
-        as certain string values do not convert smoothly to ints.) Confirms that each guess digit is within
-        specified parameters and then returns a tuple representing (valid, converted guess).
-        If guess was valid, valid = True.
-        :param guess: A string representing the player's guess.
-        :return: A tuple (valid, guess) where valid is True if the guess was valid and guess is now a list of integers.
-        '''
         valid = False
 
         if guess:
@@ -114,12 +114,12 @@ class CodeBreaker:
     #                                 HINTS:    - hints_manager                                                        #
     #                                           - hints_educated_guess                                                 #
     ####################################################################################################################
+    '''
+    Calculates how many guesses a player has made and makes a determination about what hint is appropriate
+    Increments self.hints to track hints. Self.hints can later be used to deduct turns or calculate score.
+    :return: A string response to be printed by the UI.
+    '''
     def hints_manager(self) -> str:
-        '''
-        Calculates how many guesses a player has made and makes a determination about what hint is appropriate
-        Increments self.hints to track hints. Self.hints can later be used to deduct turns or calculate score.
-        :return: A string response to be printed by the UI.
-        '''
         min_num = self.current_game.get_min_num()
         max_num = self.current_game.get_max_num()
         if len(self.guesses) == 0:
@@ -171,11 +171,11 @@ class CodeBreaker:
     ####################################################################################################################
     #                                 print_previous_feedback                                                          #
     ####################################################################################################################
+    '''
+    Prints all previous feedback and guesses.
+    :return: None
+    '''
     def print_guesses_and_feedback(self) -> None:
-        '''
-        Prints all previous feedback and guesses.
-        :return: None
-        '''
         for idx, guess in enumerate(self.guesses):
             match = self.guess_feedback[idx]
             print(GUESS_FEEDBACK.format(guess=guess, match_value_place=match[0], match_value=match[1]))

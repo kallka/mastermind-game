@@ -101,6 +101,10 @@ def get_user_guess(game: object) -> str:
     if guess == 'h' or guess == 'H':
         guess = get_hints(game)
 
+    if guess == 'p' or guess == 'P':
+        game.print_guesses_and_feedback()
+        guess = get_user_guess(game)
+
     return guess
 
 

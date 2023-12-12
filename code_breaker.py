@@ -24,7 +24,7 @@
 #                                                                                                                      #
 # #################################################################################################################### #
 from code_maker import CodeMaker
-from messages_constants import HINT_0, HINT_1
+from messages_constants import HINT_0, HINT_1, GUESS_FEEDBACK
 
 
 # #################################################################################################################### #
@@ -39,7 +39,7 @@ class CodeBreaker:
     def __init__(self):
         self.current_game = self.set_new_game()
         self.guesses = []
-        self.guess_feedback = []
+        self.guess_feedback = []    # (matched_value_and_place, matched_value_only)
         self.hints = 0
 
     ####################################################################################################################
@@ -167,6 +167,18 @@ class CodeBreaker:
             # 5. Repeat from step 2.
 
         return "<<< placeholder - under construction >>>"
+
+    ####################################################################################################################
+    #                                 print_previous_feedback                                                          #
+    ####################################################################################################################
+    def print_guesses_and_feedback(self) -> None:
+        '''
+        Prints all previous feedback and guesses.
+        :return: None
+        '''
+        for idx, guess in enumerate(self.guesses):
+            match = self.guess_feedback[idx]
+            print(GUESS_FEEDBACK.format(guess=guess, match_value_place=match[0], match_value=match[1]))
 
     ####################################################################################################################
     #                                 remaining_turns                                                                  #

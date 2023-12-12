@@ -69,24 +69,24 @@ class CodeMaker:
     ####################################################################################################################
     #                                       decrement_turns / increment_turns                                          #
     ####################################################################################################################
+    '''Can be used to decrement turns if a user gets a hint.'''
     def decrement_turns(self) -> None:
-        '''Can be used to decrement turns if a user gets a hint.'''
         self.turns -= 1
 
+    '''Can be used to increment turns if user wants one more try.'''
     def increment_turns(self) -> None:
-        '''Can be used to increment turns if user wants one more try.'''
         self.turns += 1
 
     ####################################################################################################################
     #                                       create_random_code                                                         #
     ####################################################################################################################
+    '''
+    Connect to random.org API to generate 4 random numbers 0-7 inclusive. Returns a json response that includes
+    4 randomly generated numbers in given range. If an error occurs connecting to random.org the HTTP status
+    code will be 503.
+    :return: Modifies self.answer_code with a list of 4 random integers.
+    '''
     def create_random_code(self) -> None:
-        '''
-        Connect to random.org API to generate 4 random numbers 0-7 inclusive. Returns a json response that includes
-        4 randomly generated numbers in given range. If an error occurs connecting to random.org the HTTP status
-        code will be 503.
-        :return: Modifies self.answer_code with a list of 4 random integers.
-        '''
         # set up data for json request
         raw_data = {
             "jsonrpc": "2.0",
@@ -125,14 +125,14 @@ class CodeMaker:
     #                                                 - check_end_of_game                                              #
     #                                                 - check_player_guess                                             #
     ####################################################################################################################
+    '''
+    Takes a pre-validated guess(string) from the user, checks the guess against the answer, decrements turns,
+    provides feedback, and checks if the game has ended. If game has not ended, returns matches tuple
+    (matched_value_and_place, matched_value).
+    :param guess: A validated string provided by the player representing current guess.
+    :return: A tuple of 2 ints representing (matched_value_and_place, matched_value).
+    '''
     def process_guess(self, guess: str) -> tuple[int, int]:
-        '''
-        Takes a pre-validated guess(string) from the user, checks the guess against the answer, decrements turns,
-        provides feedback, and checks if the game has ended. If game has not ended, returns matches tuple
-        (matched_value_and_place, matched_value).
-        :param guess: A validated string provided by the player representing current guess.
-        :return: A tuple of 2 ints representing (matched_value_and_place, matched_value).
-        '''
         # check valid guess
         matches = self.check_player_guess(guess)
         # remove a turn
@@ -155,13 +155,13 @@ class CodeMaker:
 
         return matches
 
+    '''
+    Checks if the game has ended by checking if turns are used up and/or if the player's correct
+    matched_value_and_place guesses equal the number of code entries.
+    :param num_correct_guesses: int representing number of guesses that matched value and place.
+    :return: tuple(bool, bool) representing end (to signal end game) and win result.
+    '''
     def check_end_of_game(self, num_correct_guesses: int) -> tuple[bool, bool]:
-        '''
-        Checks if the game has ended by checking if turns are used up and/or if the player's correct
-        matched_value_and_place guesses equal the number of code entries.
-        :param num_correct_guesses: int representing number of guesses that matched value and place.
-        :return: tuple(bool, bool) representing end (to signal end game) and win result.
-        '''
         end = False
         win = False
 
@@ -173,12 +173,12 @@ class CodeMaker:
 
         return end, win
 
+    '''
+    Checks the current guess from the code breaker for matches of index and value as well as matches of value only.
+    :param guess: The current guess from the code breaker. A list of ints.
+    :return: A tuple representing (match_value_and_place, match_value_only).
+    '''
     def check_player_guess(self, guess: list[int]) -> tuple[int, int]:
-        '''
-        Checks the current guess from the code breaker for matches of index and value as well as matches of value only.
-        :param guess: The current guess from the code breaker. A list of ints.
-        :return: A tuple representing (match_value_and_place, match_value_only).
-        '''
         # create a list to store index of items that did not match and result
         guess_idx_not_matched = []
         answer_not_matched = defaultdict(int)
@@ -205,12 +205,12 @@ class CodeMaker:
     #                       PROCESS FOR PRINTING:  - int_list_to_string                                                #
     #                                                                                                                  #
     ####################################################################################################################
+    '''
+    Takes a list of integers and returns a printable string.
+    :param int_list: List of integers
+    :return: String
+    '''
     def int_list_to_string(self, int_list: list[int]) -> str:
-        '''
-        Takes a list of integers and returns a printable string.
-        :param int_list: List of integers
-        :return: String
-        '''
         return ''.join(map(str, int_list))
 
 

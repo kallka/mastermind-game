@@ -43,6 +43,7 @@ The following are ideas to expand and improve the program.
 3. UI Class: The ui.py program might benefit from being turned into a class.
 4. Try/except for Random.org API should be changed to loop through a few request tries and then exit if API is unreachable.
 5. Consider not automatically setting the random number when CodeBreaker establishes an instance of CodeMaker game object. If another human player is going to set the code, this request wastes time.
+6. Testing at nominal level. Needs to be more robust.
        
 # Sources
 1. https://www.random.org/clients/http/api/

@@ -10,7 +10,8 @@
 #
 # File Name: code_breaker.py
 # File Description: This file servers as player2 (the code breaker). It is enables a player to send guesses to player1
-#                   (the code breaker) and provides feedback to player2.
+#                   (the code breaker) and provides feedback to player2. It also can be configured to provide hints.
+#                   The 'hints' portion of this module is currently under construction.
 
 
 # #################################################################################################################### #
@@ -89,9 +90,9 @@ class CodeBreaker:
         valid = False
 
         if guess:
-            if len(guess) == self.current_game.code_entries:
+            if len(guess) == self.current_game.get_code_entries():
                 guess = list(guess)
-                min_num, max_num = self.current_game.min_num, self.current_game.max_num
+                min_num, max_num = self.current_game.get_min_num(), self.current_game.get_max_num()
 
                 for idx, str_num in enumerate(guess):
                     # Convert to ascii values (48-57 are 0-9) as directly converting to integer value causes problems
@@ -107,7 +108,8 @@ class CodeBreaker:
         return valid, guess
 
     ####################################################################################################################
-    #                                 hints                                                                            #
+    #                                 HINTS:    - hints_manager                                                        #
+    #                                           - hints_educated_guess                                                 #
     ####################################################################################################################
     def hints_manager(self) -> str:
         '''

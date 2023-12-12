@@ -164,7 +164,7 @@ class CodeBreaker:
             #    Compare all assumed complete matches to past complete matches. Compare all value only matches to
             #    to past value only matches. T should stay consistent or higher than previous guesses. Lower T helps
             #    elimiate possible number solutions as much as higher T helps find correct solutions.
-            # 5. Repeat from 2.
+            # 5. Repeat from step 2.
 
         return "<<< placeholder - under construction >>>"
 

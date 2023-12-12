@@ -12,3 +12,5 @@ A game which can be played by a user "against" the computer. This is a game wher
 # Sources
 1. https://www.random.org/clients/http/api/
 2. https://realpython.com/python-pep8/
+3. https://mathworld.wolfram.com/Mastermind.html
+4. https://stackoverflow.com/questions/53198937/python-api-calling-random-org

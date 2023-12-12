@@ -17,14 +17,23 @@ A game which can be played by a user "against" the computer. This is a game wher
 
 # File Structure
 ├── README.md
+
 ├── code_breaker.py
+
 ├── code_maker.py
+
 ├── messages_constants.py
+
 ├── requirements.txt
+
 ├── tests
+
 │   ├── test_code_breaker.py
+
 │   ├── test_code_maker.py
+
 │   └── test_ui.py
+
 └── ui.py
 
 # Under Construction

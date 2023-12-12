@@ -3,16 +3,19 @@
 #
 # Project Name: Master Mind
 # Project Description:  A game which can be played by a user "against" the computer.
-#                       This is a game where a player tries to guess the number combinations. At the end of each attempt
-#                       to guess the 4 number combinations, the computer will provide feedback whether the player had
-#                       guess a number correctly, or/and a number and digit correctly. A player must guess the right
+#                       This is a game where a player tries to guess the number combinations in a random code
+#                       set by the computer. At the end of each attempt to guess the number combinations,
+#                       the computer will provide feedback whether the player had guessed a number correctly,
+#                       or/and a number and digit correctly. A player must guess the right
 #                       number combinations within 10 attempts to win the game.
 #
 # File Name: code_breaker.py
-# File Description: This file servers as player2 (the code breaker). It is enables a player to send guesses to player1
-#                   (the code breaker) and provides feedback to player2. It also can be configured to provide hints.
-#                   The 'hints' portion of this module is currently under construction.
-
+# File Description: This file servers as player2 (the code breaker). It enables a player to send guesses to player1
+#                   (the code maker), which provides feedback to player2. It also can be configured to provide hints.
+#                   The 'hints' portion of this module is currently under construction. CodeBreaker stores past guesses,
+#                   past feedback and number of hints for the current game.
+#
+# Sources:  1. https://mathworld.wolfram.com/Mastermind.html
 
 # #################################################################################################################### #
 #                                                                                                                      #
@@ -134,32 +137,36 @@ class CodeBreaker:
                 return self.hint_educated_guess()
 
     def hint_educated_guess(self):
-        # Steps
-            # 1. Is total number of matches (all kinds) == code_entries?
-            #       - if yes, move around entries based on last guesses
-            # 2. Is total matches == 0:
-            #       - if yes, return not yet guessed nums list
-            # 3. Matches < code_entries?
-            #       - review past entries and select at least as many in correct place
-        return "placeholder"
+        # Knuth algorithm
+            # 1. Create the set S of 1296 possible codes, 0000,1112,.., 7777. (8^4 possibilites)
+            # 2. Start with initial guess 0011.
+            # 3. Play the guess to get a response.
+            # 4. If the response is four colored pegs the game is won, the algorithm terminates.
+            # 5. Otherwise, remove from S any code that would not give the same response if it (the guess) were the code.
+            # 6. Apply minimax technique: For each unused code in S, calculate how many possibilities in S
+            #    code of the 1296 not just those in S, calculate how many possibilities in S would be eliminated for
+            #    each possible colored/white peg score. The score of a guess is the minimum number of possibilities it
+            #    might eliminate from S. From the set of guesses with the maximum score select one as the next guess,
+            #    choosing a member of S whenever possible. (Knuth follows the convention of choosing the guess with the
+            #    least numeric value e.g. 2345 is lower than 3456. Knuth also gives an example showing that in some
+            #    cases no member of S will be among the highest scoring guesses and thus the guess cannot win on the
+            #    next turn yet will be necessary to assure a win in five.)
+            # 7. Repeat from step 3.
 
-    def hints_all_possible_values(self):
-        return
+        # Personal observations about solving mastermind
+            # 1. Guess 0011
+            # 2. Play guess to get response.
+            # 3. Review complete match to value only match. Take total, T, of correct answers and create a new guess
+            #    selecting at least T numbers from previous solution. Ex. If 2 were complete match and 1 value only,
+            #    that means T =3. Pick 2 numbers to stay same and 1 number to change value. 1 new number is selected for
+            #    remaining place.
+            # 4. If previous guesses exist, compare each selected number to previous T. It should never be lower.
+            #    Compare all assumed complete matches to past complete matches. Compare all value only matches to
+            #    to past value only matches. T should stay consistent or higher than previous guesses. Lower T helps
+            #    elimiate possible number solutions as much as higher T helps find correct solutions.
+            # 5. Repeat from 2.
 
-    def hints_matches_value_only(self):
-        return
-
-    def hints_matches_place_and_value(self):
-        hint = "placeholder"
-        place_and_value_guesses = []
-        for idx, match in enumerate(self.guess_feedback):
-            # find all guesses where match and place ok
-            if match[0] != 0:
-                place_and_value_guesses.append([self.guesses[idx]])
-                # Can we do a depth first search comparing all matched value/place
-                # to all matched value?
-
-        return hint
+        return "<<< placeholder - under construction >>>"
 
     ####################################################################################################################
     #                                 remaining_turns                                                                  #
